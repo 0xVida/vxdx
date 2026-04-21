@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Windows 95 Design System
+   All colors HSL. Authentic Win95 palette + 3D bevel utilities.
+*/
+
+@layer base {
+  :root {
+    /* Win95 system palette */
+    --w95-silver: 0 0% 75%;            /* #C0C0C0 */
+    --w95-silver-light: 0 0% 88%;      /* highlight */
+    --w95-white: 0 0% 100%;
+    --w95-gray: 0 0% 50%;              /* shadow */
+    --w95-dark: 0 0% 0%;               /* hard shadow */
+    --w95-teal: 180 100% 25%;          /* desktop #008080 */
+    --w95-navy: 240 100% 25%;          /* active titlebar #000080 */
+    --w95-navy-grad: 240 100% 35%;
+    --w95-inactive: 0 0% 50%;
+    --w95-button-face: 0 0% 75%;
+    --w95-text: 0 0% 0%;
+    --w95-text-disabled: 0 0% 50%;
+    --w95-text-on-navy: 0 0% 100%;
+    --w95-link: 240 100% 40%;
+    --w95-yellow: 60 100% 80%;         /* tooltip */
+
+    /* Map shadcn tokens onto Win95 so any stray usage is consistent */
+    --background: var(--w95-teal);
+    --foreground: var(--w95-text);
+    --card: var(--w95-silver);
+    --card-foreground: var(--w95-text);
+    --popover: var(--w95-silver);
+    --popover-foreground: var(--w95-text);
+    --primary: var(--w95-navy);
+    --primary-foreground: var(--w95-text-on-navy);
+    --secondary: var(--w95-silver);
+    --secondary-foreground: var(--w95-text);
+    --muted: var(--w95-silver);
+    --muted-foreground: var(--w95-text-disabled);
+    --accent: var(--w95-navy);
+    --accent-foreground: var(--w95-text-on-navy);
+    --destructive: 0 80% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: var(--w95-dark);
+    --input: var(--w95-white);
+    --ring: var(--w95-navy);
+    --radius: 0px;
+
+    --sidebar-background: var(--w95-silver);
+    --sidebar-foreground: var(--w95-text);
+    --sidebar-primary: var(--w95-navy);
+    --sidebar-primary-foreground: var(--w95-text-on-navy);
+    --sidebar-accent: var(--w95-silver-light);
+    --sidebar-accent-foreground: var(--w95-text);
+    --sidebar-border: var(--w95-dark);
+    --sidebar-ring: var(--w95-navy);
+  }
+
+  .dark { /* Win95 has no dark mode; mirror */
+    --background: var(--w95-teal);
+    --foreground: var(--w95-text);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+  }
+  html, body, #root {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    @apply bg-w95-teal text-w95-text;
+    font-family: 'Pixelated MS Sans Serif', 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Geneva, sans-serif;
+    font-size: 11px;
+    user-select: none;
+    cursor: default;
+  }
+  input, textarea {
+    user-select: text;
+  }
+}
+
+@layer components {
+  /* Outer raised bevel (windows, buttons at rest) */
+  .bevel-out {
+    box-shadow:
+      inset 1px 1px 0 0 hsl(var(--w95-white)),
+      inset -1px -1px 0 0 hsl(var(--w95-dark)),
+      inset 2px 2px 0 0 hsl(var(--w95-silver-light)),
+      inset -2px -2px 0 0 hsl(var(--w95-gray));
+  }
+  /* Inner sunken bevel (inputs, status bar wells) */
+  .bevel-in {
+    box-shadow:
+      inset 1px 1px 0 0 hsl(var(--w95-dark)),
+      inset -1px -1px 0 0 hsl(var(--w95-white)),
+      inset 2px 2px 0 0 hsl(var(--w95-gray)),
+      inset -2px -2px 0 0 hsl(var(--w95-silver-light));
+  }
+  /* Pressed button */
+  .bevel-pressed {
+    box-shadow:
+      inset 1px 1px 0 0 hsl(var(--w95-dark)),
+      inset -1px -1px 0 0 hsl(var(--w95-silver-light)),
+      inset 2px 2px 0 0 hsl(var(--w95-gray)),
+      inset -2px -2px 0 0 hsl(var(--w95-white));
+  }
+  /* Thin sunken (1px) for status bars */
+  .bevel-thin-in {
+    box-shadow:
+      inset 1px 1px 0 0 hsl(var(--w95-gray)),
+      inset -1px -1px 0 0 hsl(var(--w95-white));
+  }
+  .bevel-thin-out {
+    box-shadow:
+      inset 1px 1px 0 0 hsl(var(--w95-white)),
+      inset -1px -1px 0 0 hsl(var(--w95-gray));
+  }
+
+  .w95-titlebar {
+    background: linear-gradient(
+      to right,
+      hsl(var(--w95-navy)) 0%,
+      hsl(var(--w95-navy-grad)) 100%
+    );
+  }
+  .w95-titlebar-inactive {
+    background: hsl(var(--w95-inactive));
+  }
+
+  .w95-button {
+    @apply bevel-out bg-w95-silver text-w95-text px-3 py-0.5 text-[11px] active:bevel-pressed;
+    min-height: 23px;
+    min-width: 75px;
+    font-family: inherit;
+  }
+  .w95-button:focus-visible {
+    outline: 1px dotted hsl(var(--w95-text));
+    outline-offset: -4px;
+  }
+
+  .w95-input {
+    @apply bevel-in bg-w95-white text-w95-text px-1 py-0.5;
+    border: none;
+    outline: none;
+  }
+
+  .w95-scroll {
+    scrollbar-color: hsl(var(--w95-silver)) hsl(var(--w95-silver-light));
+  }
+  .w95-scroll::-webkit-scrollbar { width: 16px; height: 16px; }
+  .w95-scroll::-webkit-scrollbar-track {
+    background: repeating-conic-gradient(hsl(var(--w95-white)) 0% 25%, hsl(var(--w95-silver)) 0% 50%) 50% / 2px 2px;
+  }
+  .w95-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--w95-silver));
+    box-shadow:
+      inset 1px 1px 0 0 hsl(var(--w95-white)),
+      inset -1px -1px 0 0 hsl(var(--w95-dark)),
+      inset 2px 2px 0 0 hsl(var(--w95-silver-light)),
+      inset -2px -2px 0 0 hsl(var(--w95-gray));
+  }
+
+  .desktop-icon-label {
+    text-shadow: 1px 1px 0 hsl(var(--w95-dark));
+  }
+  .desktop-icon-label-selected {
+    background: hsl(var(--w95-navy));
+    outline: 1px dotted hsl(var(--w95-white));
+  }
+}
+
+@layer utilities {
+  .text-pixel { image-rendering: pixelated; }
+  .crisp { image-rendering: pixelated; image-rendering: crisp-edges; }
+}
