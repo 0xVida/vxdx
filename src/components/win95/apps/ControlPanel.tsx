@@ -21,7 +21,7 @@ const APPLETS: Applet[] = [
   { id: "accessibility", label: "Accessibility\nOptions", Icon: AccessibilityIcon, status: "Customizes accessibility features." },
   { id: "addhardware", label: "Add New\nHardware", Icon: AddHardwareIcon, status: "Installs new hardware on your computer." },
   { id: "addremove", label: "Add/Remove\nPrograms", Icon: AddRemoveIcon, status: "Sets up programs and creates shortcuts." },
-  { id: "datetime", label: "Date/Time", Icon: DateTimeIcon, status: "Sets the date, time, and time zone." },
+  { id: "datetime", label: "Date/Time", Icon: DateTimeIcon, status: "Sets the date, time and time zone." },
   { id: "display", label: "Display", Icon: DisplayIcon, status: "Changes settings for your display." },
   { id: "fonts", label: "Fonts", Icon: FontsIcon, status: "Views, adds and removes fonts." },
   { id: "internet", label: "Internet", Icon: InternetCplIcon, status: "Configures Internet settings." },
@@ -61,7 +61,7 @@ export const ControlPanel: React.FC = () => {
     if (id === "datetime") { setOpen("datetime"); return; }
     if (id === "mouse") { setOpen("mouse"); return; }
     if (id === "keyboard") { setOpen("keyboard"); return; }
-    
+
     const applet = APPLETS.find(a => a.id === id);
     showMessage({
       title: applet?.label.replace("\n", " ") ?? "Control Panel",
@@ -86,7 +86,7 @@ export const ControlPanel: React.FC = () => {
       </Subpanel>
     );
   }
-  
+
   if (open === "sounds") {
     const beep = () => {
       const ctx = new window.AudioContext();
@@ -100,7 +100,7 @@ export const ControlPanel: React.FC = () => {
       </Subpanel>
     );
   }
-  
+
   if (open === "datetime") {
     return (
       <Subpanel title="Date/Time Properties" onClose={() => setOpen(null)}>
@@ -109,7 +109,7 @@ export const ControlPanel: React.FC = () => {
       </Subpanel>
     );
   }
-  
+
   if (open === "mouse") {
     return (
       <Subpanel title="Mouse Properties" onClose={() => setOpen(null)}>
@@ -118,7 +118,7 @@ export const ControlPanel: React.FC = () => {
       </Subpanel>
     );
   }
-  
+
   if (open === "keyboard") {
     return (
       <Subpanel title="Keyboard Properties" onClose={() => setOpen(null)}>

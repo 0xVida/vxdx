@@ -14,28 +14,30 @@ export const DOCS = [
    ABOUT ME
 ================================
 
-  Hi, I'm vida.
-  Full-Stack Developer & Designer.
+  Hi, I'm Victor Ademiju (Vida).
+  Protocol Design Engineer.
 
-  I build software the way I wish
-  Windows 95 had been built:
-  fast, opinionated, and a little
-  nostalgic.
-
---------------------------------
-  SKILLS
---------------------------------
-  > React, TypeScript, Node.js
-  > Tailwind, Vite
-  > PostgreSQL / Legacy DB
-  > UI/UX, Design Systems
+  I specialize in backend systems and 
+  blockchain development, crafting 
+  robust solutions across Solana, 
+  EVM and Move ecosystems - Sui specifically.
 
 --------------------------------
-  INTERESTS
+  EXPERTISE
 --------------------------------
-  Retro UI, synthwave, mechanical
-  keyboards, and pretending it's
-  still 1995.
+  > Protocol Architecture
+  > Smart Contract Development
+  > Distributed Systems
+  > Rust, Move, Solidity, TS
+
+--------------------------------
+  HIGHLIGHTS
+--------------------------------
+  Bullposting Sui on a daily
+  Unprofessional Rapper
+  Can't code without music
+  Plays basketball and soccer
+  Kostas Kryptos cryptography student
 ` }
   },
   {
@@ -43,24 +45,29 @@ export const DOCS = [
     Icon: BriefcaseIcon,
     payload: {
       readOnly: true, content:
-        `Vida
-Full-Stack Developer
+        `VICTOR ADEMIJU
+Protocol Design Engineer
 
 EXPERIENCE
 ----------
-• Senior Engineer, ACME (2022–present)
-  Led frontend platform; shipped design system.
+• Protocol Design Engineer (2022–present)
+  Led protocol design for a healthcare 
+  application serving thousands of users.
+  Won multiple Sui hackathons.
 
-• Engineer, Initech (2019–2022)
-  Built APIs and dashboards.
+• Blockchain Developer (2021–present)
+  Built on Sui, Solana and EVM.
+  Expertise in Move Sui stack primitives:
+  Walrus, Seal, Nautilus, Deepbook,
+  Enoki for ZK login and Sui NS.
 
-EDUCATION
----------
-• B.Sc. Computer Science, University.
+• Fullstack Developer (2020–present)
+  Crafted robust backend architectures 
+  and scalable API solutions.
 
-CONTACT
--------
-• email@example.com
+EDUCATION & REWARDS
+------------------
+• Mysten Labs Bootcamp (2025) Hackathon Winner
 ` }
   },
   {

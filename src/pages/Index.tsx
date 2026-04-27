@@ -21,7 +21,7 @@ const Index = () => {
     const docsApp = APPS["documents"];
     const docsW = docsApp.defaultSize.w;
     const docsH = docsApp.defaultSize.h;
-    
+
     // On very small screens, just center it or put at 10,10
     const docsX = sw > docsW + 40 ? (sw > 800 ? sw - docsW - 40 : 20) : 10;
     const docsY = sh > docsH + 80 ? (sh > 600 ? sh - docsH - 80 : 150) : 40;
@@ -38,17 +38,17 @@ const Index = () => {
 
     // 2. Portfolio documents scattered across the available width
     const otherDocs = DOCS.filter(d => d.id !== "resume-doc" && d.id !== "about-doc" && d.appId !== "projects" && d.appId !== "contact");
-    
+
     otherDocs.forEach((d, idx) => {
       const app = APPS[d.appId];
       if (!app) return;
       const w = app.defaultSize.w;
       const h = app.defaultSize.h;
-      
+
       // Calculate a safe range for scattering
       const safeWidth = Math.max(0, sw - w - 40);
       const safeHeight = Math.max(0, sh - h - 100);
-      
+
       // Use a fraction of the safe area based on index
       const stepX = otherDocs.length > 1 ? safeWidth / (otherDocs.length - 1) : 0;
       const stepY = otherDocs.length > 1 ? 40 / (otherDocs.length - 1) : 0;
@@ -65,23 +65,24 @@ const Index = () => {
       });
     });
 
-    // 3. Top Layers (Centered with slight offset)
     const topApps = [
-      { id: "about-doc", offset: -20 },
-      { id: "resume-doc", offset: 20 }
+      { id: "projects-doc", offset: 40 },
+      { id: "resume-doc", offset: 20 },
+      { id: "about-doc", offset: -20 }
     ];
 
     topApps.forEach(({ id, offset }) => {
+      // Check if it's a doc or a direct appId
       const doc = DOCS.find(d => d.id === id);
       if (doc) {
         const app = APPS[doc.appId];
         const w = app.defaultSize.w;
         const h = app.defaultSize.h;
-        
+
         // Center the window but keep it at least at x=10, y=10
         const x = Math.max(10, (sw - w) / 2 + offset);
         const y = Math.max(10, (sh - h - taskbarHeight) / 2 + offset);
-        
+
         // Final guard: if it's still poking off the right/bottom on tiny screens, nudge it
         const finalX = sw < w + x ? Math.max(0, sw - w) : x;
         const finalY = sh < h + y + taskbarHeight ? Math.max(0, sh - h - taskbarHeight) : y;

@@ -65,7 +65,7 @@ export const RunDialog: React.FC<{ payload?: { onClose?: () => void } }> = ({ pa
       <div className="flex gap-2 items-start">
         <RunIcon size={32} />
         <div className="flex-1">
-          Type the name of a program, folder, or document, and Windows will open it for you.
+          Type the name of a program, folder, or document and Windows will open it for you.
         </div>
       </div>
       <label className="flex flex-col gap-1">

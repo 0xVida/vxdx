@@ -9,52 +9,69 @@ interface Project {
   description: string;
   stack: string[];
   url?: string;
+  sourceUrl?: string;
   Icon: React.FC<{ size?: number }>;
 }
 
 const PROJECTS: Project[] = [
   {
-    name: "PixelDash.exe",
+    name: "Otter Protocol.exe",
     type: "Application",
-    size: "2.4 MB",
-    modified: "10/11/2024 14:32",
+    size: "3.2 MB",
+    modified: "03/15/2026 10:45",
     description:
-      "Real-time analytics dashboard with WebSocket streams, custom charting, and a retro pixel theme.",
-    stack: ["React", "TypeScript", "WebSockets", "D3"],
-    url: "https://example.com",
+      "Sui's first programmable data exchange layer. Connects providers and consumers through secure access-control and data chunking.",
+    stack: ["Move", "Sui", "Walrus", "Seal", "TypeScript"],
+    url: "https://otter-protocol.vercel.app/",
+    sourceUrl: "https://github.com/0xVida/Otter",
     Icon: NotepadIcon,
   },
   {
-    name: "RetroChat",
-    type: "File Folder",
-    size: "—",
-    modified: "08/02/2024 09:11",
-    description:
-      "End-to-end encrypted chat app styled like AIM. Group rooms, presence, typing indicators.",
-    stack: ["Next.js", "Supabase", "WebRTC"],
-    url: "https://example.com",
-    Icon: FolderIcon,
-  },
-  {
-    name: "Browser95",
+    name: "Penguin.exe",
     type: "Application",
-    size: "5.1 MB",
-    modified: "06/19/2024 22:08",
+    size: "2.1 MB",
+    modified: "02/10/2026 14:22",
     description:
-      "An in-browser Windows 95 simulator (yes, the one you're using). Window manager, taskbar, the whole thing.",
-    stack: ["React", "Zustand", "react-rnd"],
-    url: "/",
+      "Decentralized, privacy-focused messaging on Sui. Uses Walrus for storage, Seal for access control, and Enoki for ZK onboarding.",
+    stack: ["Sui", "Walrus", "Seal", "Enoki", "SuiNS"],
+    url: "https://penguin-rose.vercel.app/",
+    sourceUrl: "https://github.com/theloneson/Penguin",
     Icon: IEIcon,
   },
   {
-    name: "BeatGrid",
+    name: "SHIELD.exe",
     type: "Application",
-    size: "1.8 MB",
-    modified: "03/04/2024 16:45",
+    size: "1.5 MB",
+    modified: "01/05/2026 09:15",
     description:
-      "Web-based step sequencer with sample loading, swing, and MIDI export.",
-    stack: ["React", "Web Audio", "Canvas"],
+      "Sui wallet management tool for burning unwanted NFTs or hiding them in a Soulbound Token (SBT) vault.",
+    stack: ["Move", "Sui", "TypeScript", "SBT"],
+    url: "https://wallet-cleaner-app.vercel.app/",
+    sourceUrl: "https://github.com/0xVida/wallet-cleaner-app",
     Icon: NotepadIcon,
+  },
+  {
+    name: "Memo Protocol",
+    type: "File Folder",
+    size: "—",
+    modified: "11/20/2025 16:30",
+    description:
+      "Public utility protocol for attaching memos to Sui transactions. Includes on-chain contracts and a TypeScript SDK.",
+    stack: ["Sui", "Move", "TypeScript", "SDK"],
+    url: "https://testnet.suivision.xyz/package/0x21eba4a9ac6005260f45e776afebf02de42eada48438deceac0b76b9886e37d8",
+    sourceUrl: "https://github.com/0xVida/memo-protocol",
+    Icon: FolderIcon,
+  },
+  {
+    name: "Sui Wrapped",
+    type: "Application",
+    size: "1.1 MB",
+    modified: "12/28/2025 23:59",
+    description:
+      "Wallet activity summary tool that visualizes on-chain behavior. Used by hundreds in the Sui community.",
+    stack: ["Sui", "TypeScript", "Sui NS", "Analytics"],
+    url: "https://sui-wrapped.vercel.app/",
+    Icon: IEIcon,
   },
 ];
 
@@ -108,19 +125,29 @@ export const Projects: React.FC = () => {
               <sel.Icon size={32} />
               <div className="mt-1 font-bold">{sel.name}</div>
             </div>
-            <div className="bevel-in bg-w95-white p-2 mb-2 flex-1">
+            <div className="bevel-in bg-w95-white p-2 mb-2 flex-1 overflow-auto w95-scroll">
               <p className="mb-2">{sel.description}</p>
               <div className="text-w95-text-disabled">Stack:</div>
               <div>{sel.stack.join(", ")}</div>
             </div>
-            {sel.url && (
-              <button
-                className="w95-button"
-                onClick={() => window.open(sel.url, "_blank")}
-              >
-                Open
-              </button>
-            )}
+            <div className="flex flex-col gap-1">
+              {sel.url && (
+                <button
+                  className="w95-button w-full"
+                  onClick={() => window.open(sel.url, "_blank")}
+                >
+                  Launch Demo
+                </button>
+              )}
+              {sel.sourceUrl && (
+                <button
+                  className="w95-button w-full"
+                  onClick={() => window.open(sel.sourceUrl, "_blank")}
+                >
+                  View Source
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>

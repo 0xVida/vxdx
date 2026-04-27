@@ -3,36 +3,37 @@ import React from "react";
 export const AboutMe: React.FC = () => (
   <div className="p-3 font-mono text-[12px] leading-relaxed text-w95-text whitespace-pre-wrap">
     {`================================
-   ABOUT.TXT
+   ABOUT_ME.TXT
 ================================
 
-  Hi, I'm Vida.
-  Full-Stack Developer & Designer.
+  Hi, I'm Victor Ademiju (Vida).
+  Protocol Design Engineer.
 
-  I build software the way I wish
-  Windows 95 had been built:
-  fast, opinionated, and a little
-  nostalgic.
-
---------------------------------
-  SKILLS
---------------------------------
-  > React, TypeScript, Node.js
-  > Tailwind, Vite, Next.js
-  > PostgreSQL, Supabase
-  > UI/UX, Design Systems
-  > A questionable amount of CSS
+  I specialize in backend systems and 
+  blockchain development, crafting 
+  robust solutions across Solana, 
+  EVM and Move ecosystems.
 
 --------------------------------
-  INTERESTS
+  EXPERTISE
 --------------------------------
-  Retro UI, synthwave, mechanical
-  keyboards, and pretending it's
-  still 1995.
+  > Protocol Architecture
+  > Smart Contract Development
+  > Distributed Systems
+  > Rust, Move, Solidity, TS
 
 --------------------------------
-  Double-click "Projects" on the
-  desktop to see what I've built.
+  HIGHLIGHTS
+--------------------------------
+  Bullposting Sui on a daily
+  Unprofessional Rapper
+  Can't code without music
+  Plays basketball and soccer
+  Kostas Kryptos cryptography student
+
+--------------------------------
+  Double-click "Projects" on the 
+  desktop to see my work.
 ================================
 `}
   </div>

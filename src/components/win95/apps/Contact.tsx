@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export const Contact: React.FC = () => {
-  const [form, setForm] = useState({ to: "you@example.com", subject: "", body: "" });
+  const [form, setForm] = useState({ to: "ademijuvictor@gmail.com", subject: "", body: "" });
   const [sent, setSent] = useState(false);
 
   return (
@@ -36,23 +36,19 @@ export const Contact: React.FC = () => {
         >
           Send
         </button>
-        <button className="w95-button" onClick={() => setForm({ to: "you@example.com", subject: "", body: "" })}>
+        <button className="w95-button" onClick={() => setForm({ to: "ademijuvictor@gmail.com", subject: "", body: "" })}>
           Clear
         </button>
         {sent && <span className="text-[11px]">Mail client opened.</span>}
       </div>
       <div className="text-[11px] mt-1">
         Or reach me at:{" "}
-        <a className="text-w95-link underline" href="https://github.com" target="_blank" rel="noreferrer">
+        <a className="text-w95-link underline" href="https://github.com/0xVida" target="_blank" rel="noreferrer">
           github
         </a>{" "}
         ·{" "}
-        <a className="text-w95-link underline" href="https://linkedin.com" target="_blank" rel="noreferrer">
-          linkedin
-        </a>{" "}
-        ·{" "}
-        <a className="text-w95-link underline" href="https://twitter.com" target="_blank" rel="noreferrer">
-          twitter
+        <a className="text-w95-link underline" href="https://x.com/vidaonx" target="_blank" rel="noreferrer">
+          x/twitter
         </a>
       </div>
     </div>
