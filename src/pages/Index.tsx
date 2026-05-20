@@ -82,9 +82,9 @@ const Index = () => {
 
         if (id === "about-doc" && sw < 640) {
           w = sw - 20;
-          h = sh - taskbarHeight - 50;
+          h = sh - taskbarHeight - 90;
           x = 10;
-          y = 40;
+          y = 70;
         }
 
         const finalX = sw < w + x ? Math.max(0, sw - w) : x;

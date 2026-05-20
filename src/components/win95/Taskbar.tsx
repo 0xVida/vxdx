@@ -46,7 +46,7 @@ export const Taskbar: React.FC = () => {
 
         <div className="bevel-thin-in h-6 w-px mx-0.5" />
 
-        <div className="flex-1 flex items-center gap-0.5 overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
+        <div className="flex-1 flex items-center gap-0.5 overflow-x-auto overflow-y-hidden no-scrollbar">
           {windows.map((w) => {
             const app = APPS[w.appId];
             const active = activeId === w.id && !w.minimized;
