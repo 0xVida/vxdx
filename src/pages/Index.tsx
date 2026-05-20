@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Desktop } from "@/components/win95/Desktop";
 import { Taskbar } from "@/components/win95/Taskbar";
 import { Window } from "@/components/win95/Window";
@@ -17,12 +17,10 @@ const Index = () => {
     const sh = window.innerHeight;
     const taskbarHeight = 28;
 
-    // 1. My Documents (Bottom layer)
     const docsApp = APPS["documents"];
     const docsW = docsApp.defaultSize.w;
     const docsH = docsApp.defaultSize.h;
 
-    // On very small screens, just center it or put at 10,10
     const docsX = sw > docsW + 40 ? (sw > 800 ? sw - docsW - 40 : 20) : 10;
     const docsY = sh > docsH + 80 ? (sh > 600 ? sh - docsH - 80 : 150) : 40;
 
@@ -34,9 +32,9 @@ const Index = () => {
       x: docsX,
       y: docsY,
       width: docsW, height: docsH,
+      minimized: true,
     });
 
-    // 2. Portfolio documents scattered across the available width
     const otherDocs = DOCS.filter(d => d.id !== "resume-doc" && d.id !== "about-doc" && d.appId !== "projects" && d.appId !== "contact");
 
     otherDocs.forEach((d, idx) => {
@@ -49,7 +47,7 @@ const Index = () => {
       const safeWidth = Math.max(0, sw - w - 40);
       const safeHeight = Math.max(0, sh - h - 100);
 
-      // Use a fraction of the safe area based on index
+      // use a fraction of the safe area based on index
       const stepX = otherDocs.length > 1 ? safeWidth / (otherDocs.length - 1) : 0;
       const stepY = otherDocs.length > 1 ? 40 / (otherDocs.length - 1) : 0;
 
@@ -62,6 +60,7 @@ const Index = () => {
         y: 80 + (idx * stepY),
         width: w, height: h,
         payload: d.payload,
+        minimized: true,
       });
     });
 
@@ -72,18 +71,22 @@ const Index = () => {
     ];
 
     topApps.forEach(({ id, offset }) => {
-      // Check if it's a doc or a direct appId
       const doc = DOCS.find(d => d.id === id);
       if (doc) {
         const app = APPS[doc.appId];
-        const w = app.defaultSize.w;
-        const h = app.defaultSize.h;
+        let w = app.defaultSize.w;
+        let h = app.defaultSize.h;
 
-        // Center the window but keep it at least at x=10, y=10
-        const x = Math.max(10, (sw - w) / 2 + offset);
-        const y = Math.max(10, (sh - h - taskbarHeight) / 2 + offset);
+        let x = Math.max(10, (sw - w) / 2 + offset);
+        let y = Math.max(10, (sh - h - taskbarHeight) / 2 + offset);
 
-        // Final guard: if it's still poking off the right/bottom on tiny screens, nudge it
+        if (id === "about-doc" && sw < 640) {
+          w = sw - 20;
+          h = sh - taskbarHeight - 50;
+          x = 10;
+          y = 40;
+        }
+
         const finalX = sw < w + x ? Math.max(0, sw - w) : x;
         const finalY = sh < h + y + taskbarHeight ? Math.max(0, sh - h - taskbarHeight) : y;
 
@@ -96,6 +99,7 @@ const Index = () => {
           y: finalY,
           width: w, height: h,
           payload: doc.payload,
+          minimized: id !== "about-doc",
         });
       }
     });

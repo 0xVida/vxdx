@@ -186,11 +186,23 @@ const Item: React.FC<{
         <span className="w-5 h-5 flex items-center justify-center shrink-0">{item.icon}</span>
         <span>{item.label}</span>
       </div>
-      {item.submenu && <span className="ml-2">▶</span>}
+      {item.submenu && (
+        <svg className="ml-2 w-1.5 h-2.5" viewBox="0 0 4 7" fill="currentColor">
+          <path d="M0 0 L4 3.5 L0 7 Z" />
+        </svg>
+      )}
       {isHover && item.submenu && (
         <div
-          className="absolute left-full top-0 -ml-px bevel-out bg-w95-silver py-1 text-w95-text z-[10000]"
-          style={{ minWidth: 180 }}
+          ref={(el) => {
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            if (rect.right > window.innerWidth) {
+              el.style.left = "auto";
+              el.style.right = "100%";
+            }
+          }}
+          className="absolute top-0 -ml-px bevel-out bg-w95-silver py-1 text-w95-text z-[10000]"
+          style={{ minWidth: 180, left: "100%" }}
         >
           {item.submenu.map((s, j) => (
             <Item key={j} item={s} hover={hover} setHover={setHover} launch={launch} path={`${path}.${j}`} />

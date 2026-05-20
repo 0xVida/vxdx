@@ -24,7 +24,7 @@ interface WMState {
   windows: WindowState[];
   zCounter: number;
   activeId: WindowId | null;
-  open: (w: Omit<WindowState, "zIndex" | "minimized" | "maximized">) => void;
+  open: (w: Omit<WindowState, "zIndex" | "minimized" | "maximized"> & { minimized?: boolean; maximized?: boolean }) => void;
   close: (id: WindowId) => void;
   focus: (id: WindowId) => void;
   minimize: (id: WindowId) => void;
@@ -43,19 +43,21 @@ export const useWM = create<WMState>((set, get) => ({
     // Otherwise allow multiple instances — Win95 lets you open many Notepads.
     const existing = get().windows.find((x) => x.id === w.id);
     if (existing) {
-      get().focus(existing.id);
-      if (existing.minimized) {
-        set((s) => ({
-          windows: s.windows.map((x) => (x.id === existing.id ? { ...x, minimized: false } : x)),
-        }));
+      if (!w.minimized) {
+        get().focus(existing.id);
+        if (existing.minimized) {
+          set((s) => ({
+            windows: s.windows.map((x) => (x.id === existing.id ? { ...x, minimized: false } : x)),
+          }));
+        }
       }
       return;
     }
     const z = get().zCounter + 1;
     set((s) => ({
       zCounter: z,
-      activeId: w.id,
-      windows: [...s.windows, { ...w, zIndex: z, minimized: false, maximized: false }],
+      activeId: w.minimized ? s.activeId : w.id,
+      windows: [...s.windows, { ...w, zIndex: z, minimized: w.minimized ?? false, maximized: w.maximized ?? false }],
     }));
   },
   close: (id) =>

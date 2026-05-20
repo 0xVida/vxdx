@@ -5,10 +5,10 @@ import { toast } from "sonner";
 type Tool = "pencil" | "brush" | "eraser" | "line" | "rect" | "ellipse" | "fill" | "picker";
 
 const PALETTE = [
-  "#000000","#808080","#800000","#808000","#008000","#008080","#000080","#800080",
-  "#808040","#004040","#0080FF","#004080","#4000FF","#804000","#FFFFFF","#C0C0C0",
-  "#FF0000","#FFFF00","#00FF00","#00FFFF","#0000FF","#FF00FF","#FFFF80","#00FF80",
-  "#80FFFF","#8080FF","#FF0080","#FF8040",
+  "#000000", "#808080", "#800000", "#808000", "#008000", "#008080", "#000080", "#800080",
+  "#808040", "#004040", "#0080FF", "#004080", "#4000FF", "#804000", "#FFFFFF", "#C0C0C0",
+  "#FF0000", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#FF00FF", "#FFFF80", "#00FF80",
+  "#80FFFF", "#8080FF", "#FF0080", "#FF8040",
 ];
 
 export const Paint: React.FC = () => {
@@ -90,7 +90,7 @@ export const Paint: React.FC = () => {
   };
 
   const drawDot = (ctx: CanvasRenderingContext2D, x: number, y: number, color: string, s: number) => {
-    ctx.fillStyle = color; ctx.fillRect(x - Math.floor(s/2), y - Math.floor(s/2), s, s);
+    ctx.fillStyle = color; ctx.fillRect(x - Math.floor(s / 2), y - Math.floor(s / 2), s, s);
   };
   const drawLine = (ctx: CanvasRenderingContext2D, x0: number, y0: number, x1: number, y1: number, color: string, s: number) => {
     const dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
@@ -109,17 +109,17 @@ export const Paint: React.FC = () => {
     const img = ctx.getImageData(0, 0, c.width, c.height);
     const data = img.data;
     const idx = (x: number, y: number) => (y * c.width + x) * 4;
-    const target = [data[idx(x,y)], data[idx(x,y)+1], data[idx(x,y)+2], data[idx(x,y)+3]];
-    const hex = color.replace("#",""); const r = parseInt(hex.slice(0,2),16), g = parseInt(hex.slice(2,4),16), b = parseInt(hex.slice(4,6),16);
-    if (target[0]===r && target[1]===g && target[2]===b) return;
-    const stack = [[x,y]];
+    const target = [data[idx(x, y)], data[idx(x, y) + 1], data[idx(x, y) + 2], data[idx(x, y) + 3]];
+    const hex = color.replace("#", ""); const r = parseInt(hex.slice(0, 2), 16), g = parseInt(hex.slice(2, 4), 16), b = parseInt(hex.slice(4, 6), 16);
+    if (target[0] === r && target[1] === g && target[2] === b) return;
+    const stack = [[x, y]];
     while (stack.length) {
       const [cx, cy] = stack.pop()!;
-      if (cx<0||cy<0||cx>=c.width||cy>=c.height) continue;
-      const i = idx(cx,cy);
-      if (data[i]!==target[0]||data[i+1]!==target[1]||data[i+2]!==target[2]||data[i+3]!==target[3]) continue;
-      data[i]=r; data[i+1]=g; data[i+2]=b; data[i+3]=255;
-      stack.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1]);
+      if (cx < 0 || cy < 0 || cx >= c.width || cy >= c.height) continue;
+      const i = idx(cx, cy);
+      if (data[i] !== target[0] || data[i + 1] !== target[1] || data[i + 2] !== target[2] || data[i + 3] !== target[3]) continue;
+      data[i] = r; data[i + 1] = g; data[i + 2] = b; data[i + 3] = 255;
+      stack.push([cx + 1, cy], [cx - 1, cy], [cx, cy + 1], [cx, cy - 1]);
     }
     ctx.putImageData(img, 0, 0);
   };
@@ -148,13 +148,13 @@ export const Paint: React.FC = () => {
         <button className="w95-button px-2" onClick={save}>Save</button>
         <span className="mx-1 border-l border-w95-gray" />
         <label className="flex items-center gap-1">Size
-          <input type="range" min={1} max={12} value={size} onChange={(e)=>setSize(+e.target.value)} className="w-16" />
+          <input type="range" min={1} max={12} value={size} onChange={(e) => setSize(+e.target.value)} className="w-16" />
         </label>
       </div>
       <div className="flex flex-1 overflow-hidden">
         <div className="bevel-out p-1 flex flex-col gap-1 w-14 shrink-0">
           {tools.map((t) => (
-            <button key={t.id} className={`w-10 h-8 ${tool===t.id?"bevel-in":"bevel-out"} bg-w95-silver`} onClick={()=>setTool(t.id)} title={t.id}>
+            <button key={t.id} className={`w-10 h-8 ${tool === t.id ? "bevel-in" : "bevel-out"} bg-w95-silver`} onClick={() => setTool(t.id)} title={t.id}>
               {t.label}
             </button>
           ))}
@@ -163,7 +163,7 @@ export const Paint: React.FC = () => {
           <div className="relative inline-block bevel-in bg-white">
             <canvas ref={canvasRef} width={520} height={340} className="block cursor-crosshair"
               onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}
-              onContextMenu={(e)=>e.preventDefault()} />
+              onContextMenu={(e) => e.preventDefault()} />
             <canvas ref={overlayRef} width={520} height={340} className="absolute inset-0 pointer-events-none" />
           </div>
         </div>
@@ -176,7 +176,7 @@ export const Paint: React.FC = () => {
         <div className="grid grid-cols-14 gap-0.5" style={{ gridTemplateColumns: "repeat(14, 1fr)" }}>
           {PALETTE.map((c) => (
             <button key={c} className="w-4 h-4 border border-w95-gray" style={{ background: c }}
-              onClick={() => setFg(c)} onContextMenu={(e)=>{e.preventDefault(); setBg(c);}} />
+              onClick={() => setFg(c)} onContextMenu={(e) => { e.preventDefault(); setBg(c); }} />
           ))}
         </div>
       </div>

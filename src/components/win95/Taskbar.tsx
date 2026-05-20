@@ -46,7 +46,7 @@ export const Taskbar: React.FC = () => {
 
         <div className="bevel-thin-in h-6 w-px mx-0.5" />
 
-        <div className="flex-1 flex items-center gap-0.5 overflow-hidden">
+        <div className="flex-1 flex items-center gap-0.5 overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
           {windows.map((w) => {
             const app = APPS[w.appId];
             const active = activeId === w.id && !w.minimized;
@@ -54,7 +54,7 @@ export const Taskbar: React.FC = () => {
               <button
                 key={w.id}
                 onClick={() => (active ? minimize(w.id) : focus(w.id))}
-                className={`flex items-center gap-1 px-1 h-6 max-w-[160px] text-[11px] bg-w95-silver ${
+                className={`shrink-0 flex items-center gap-1 px-1 h-6 max-w-[160px] min-w-[80px] text-[11px] bg-w95-silver ${
                   active ? "bevel-pressed" : "bevel-out"
                 }`}
               >
