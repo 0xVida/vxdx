@@ -10,12 +10,26 @@ interface Project {
   stack: string[];
   url?: string;
   sourceUrl?: string;
+  personal?: boolean;
   Icon: React.FC<{ size?: number }>;
 }
 
 const PROJECTS: Project[] = [
   {
-    name: "Otter Protocol.exe",
+    name: "OpenHacks.exe",
+    type: "Application",
+    size: "2.8 MB",
+    modified: "05/20/2026 12:00",
+    description:
+      "Production-ready escrow and bounty platform for Autonomous AI Agents and Human Contributors. Bridges GitHub issues with automatic payments on merge. Agents self-register headlessly via GitHub Device Flow — contribute and get paid instantly.",
+    stack: ["Next.js", "TypeScript", "GitHub API", "TAG: Escrow", "TAG: AI Agents"],
+    url: "https://openhacks-pro.vercel.app",
+    sourceUrl: "https://github.com/0xVida/openhacks",
+    personal: true,
+    Icon: IEIcon,
+  },
+  {
+    name: "Otter Protocol.txt",
     type: "Application",
     size: "3.2 MB",
     modified: "03/15/2026 10:45",
@@ -24,6 +38,7 @@ const PROJECTS: Project[] = [
     stack: ["Move", "Sui", "Walrus", "Seal", "TypeScript"],
     url: "https://otter-protocol.vercel.app/",
     sourceUrl: "https://github.com/0xVida/Otter",
+    personal: true,
     Icon: NotepadIcon,
   },
   {
@@ -36,18 +51,20 @@ const PROJECTS: Project[] = [
     stack: ["Sui", "Walrus", "Seal", "Enoki", "SuiNS"],
     url: "https://penguin-rose.vercel.app/",
     sourceUrl: "https://github.com/theloneson/Penguin",
+    personal: true,
     Icon: IEIcon,
   },
   {
-    name: "SHIELD.exe",
+    name: "SHIELD.txt",
     type: "Application",
     size: "1.5 MB",
     modified: "01/05/2026 09:15",
     description:
       "Sui wallet management tool for burning unwanted NFTs or hiding them in a Soulbound Token (SBT) vault.",
-    stack: ["Move", "Sui", "TypeScript", "SBT"],
+    stack: ["Move", "Sui", "TypeScript", "TAG: SBT"],
     url: "https://wallet-cleaner-app.vercel.app/",
     sourceUrl: "https://github.com/0xVida/wallet-cleaner-app",
+    personal: true,
     Icon: NotepadIcon,
   },
   {
@@ -60,6 +77,7 @@ const PROJECTS: Project[] = [
     stack: ["Sui", "Move", "TypeScript", "SDK"],
     url: "https://testnet.suivision.xyz/package/0x21eba4a9ac6005260f45e776afebf02de42eada48438deceac0b76b9886e37d8",
     sourceUrl: "https://github.com/0xVida/memo-protocol",
+    personal: true,
     Icon: FolderIcon,
   },
   {
@@ -71,6 +89,7 @@ const PROJECTS: Project[] = [
       "Wallet activity summary tool that visualizes on-chain behavior. Used by hundreds in the Sui community.",
     stack: ["Sui", "TypeScript", "Sui NS", "Analytics"],
     url: "https://sui-wrapped.vercel.app/",
+    personal: true,
     Icon: IEIcon,
   },
 ];
@@ -124,6 +143,11 @@ export const Projects: React.FC = () => {
             <div className="flex flex-col items-center mb-2">
               <sel.Icon size={32} />
               <div className="mt-1 font-bold">{sel.name}</div>
+              {sel.personal && (
+                <div className="mt-1 bevel-in bg-w95-white px-1 py-0.5 text-[10px] text-w95-text-disabled">
+                  Personal Project
+                </div>
+              )}
             </div>
             <div className="bevel-in bg-w95-white p-2 mb-2 flex-1 overflow-auto w95-scroll">
               <p className="mb-2">{sel.description}</p>
@@ -152,7 +176,7 @@ export const Projects: React.FC = () => {
         )}
       </div>
       <div className="bevel-thin-in px-2 py-0.5 text-[11px] bg-w95-silver">
-        {PROJECTS.length} object(s) — double-click to launch
+        {PROJECTS.length} object(s) — Personal Projects — double-click to launch
       </div>
     </div>
   );
