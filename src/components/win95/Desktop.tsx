@@ -1,17 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { APPS, DESKTOP_LAYOUT } from "./apps/registry";
 import { useWM } from "./wm";
 import { useContextMenu } from "./ContextMenu";
 import { useDesktopFiles, type DesktopFile } from "./desktopFiles";
 import { PaintIcon, NotepadIcon, RecycleBinFullIcon } from "./Icons";
+import { useDesktopIcons, getSnappedPosition } from "./desktopIcons";
 
 export const Desktop: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { open } = useWM();
   const { open: openMenu } = useContextMenu();
   const { files, remove, trash } = useDesktopFiles();
+  const { positions, setPosition, initializePositions, arrangeIcons } = useDesktopIcons();
   const [selected, setSelected] = useState<string | null>(null);
   const [marquee, setMarquee] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
+
+  const [draggingId, setDraggingId] = useState<string | null>(null);
+  const dragOffset = useRef({ x: 0, y: 0 });
+  const startMousePos = useRef({ x: 0, y: 0 });
+  const hasDragged = useRef(false);
+
+  const activeDesktopApps = DESKTOP_LAYOUT.filter((id) => {
+    const app = APPS[id];
+    return app && !app.hideFromDesktop;
+  });
+
+  const allIds = [
+    ...activeDesktopApps,
+    ...files.map((f) => f.id),
+  ];
+
+  useEffect(() => {
+    initializePositions(allIds);
+  }, [allIds.length]);
+
+  useEffect(() => {
+    if (!draggingId) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const dx = e.clientX - startMousePos.current.x;
+      const dy = e.clientY - startMousePos.current.y;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        hasDragged.current = true;
+      }
+
+      const nextX = e.clientX - dragOffset.current.x;
+      const nextY = e.clientY - dragOffset.current.y;
+      setPosition(draggingId, nextX, nextY);
+    };
+
+    const handleMouseUp = (e: MouseEvent) => {
+      const finalX = e.clientX - dragOffset.current.x;
+      const finalY = e.clientY - dragOffset.current.y;
+      const snapped = getSnappedPosition(finalX, finalY, window.innerWidth, window.innerHeight);
+      setPosition(draggingId, snapped.x, snapped.y);
+      setDraggingId(null);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [draggingId, setPosition]);
 
   const openFile = (file: DesktopFile) => {
     if (file.type === "image") {
@@ -61,8 +113,28 @@ export const Desktop: React.FC<{ children?: React.ReactNode }> = ({ children }) 
       kind: "item" as const,
       label: "Arrange Icons",
       submenu: [
-        { kind: "item" as const, label: "by Name", disabled: true },
-        { kind: "item" as const, label: "by Type", disabled: true },
+        {
+          kind: "item" as const,
+          label: "by Name",
+          onClick: () => {
+            const sortedIds = [
+              ...activeDesktopApps,
+              ...[...files].sort((a, b) => a.name.localeCompare(b.name)).map((f) => f.id),
+            ];
+            arrangeIcons(sortedIds);
+          },
+        },
+        {
+          kind: "item" as const,
+          label: "by Type",
+          onClick: () => {
+            const sortedIds = [
+              ...activeDesktopApps,
+              ...[...files].sort((a, b) => a.type.localeCompare(b.type)).map((f) => f.id),
+            ];
+            arrangeIcons(sortedIds);
+          },
+        },
         { kind: "item" as const, label: "by Size", disabled: true },
         { kind: "item" as const, label: "by Date", disabled: true },
         { kind: "sep" as const },
@@ -113,18 +185,37 @@ export const Desktop: React.FC<{ children?: React.ReactNode }> = ({ children }) 
         setMarquee(null);
       }}
     >
-      {/* Icon grid */}
-      <div className="absolute top-2 left-2 grid grid-cols-1 gap-1 content-start">
-        {DESKTOP_LAYOUT.map((id) => {
+      {/* Desktop Icons */}
+      <div>
+        {activeDesktopApps.map((id) => {
           const app = APPS[id];
           if (!app || app.hideFromDesktop) return null;
           const isSel = selected === id;
+          const pos = positions[id] || { x: 10, y: 10 };
           return (
             <button
               key={id}
               className="w-24 flex flex-col items-center px-1 py-1 focus:outline-none"
+              style={{
+                position: "absolute",
+                left: pos.x,
+                top: pos.y,
+              }}
+              onMouseDown={(e) => {
+                if (e.button !== 0) return;
+                e.stopPropagation();
+                setSelected(id);
+                dragOffset.current = {
+                  x: e.clientX - pos.x,
+                  y: e.clientY - pos.y,
+                };
+                startMousePos.current = { x: e.clientX, y: e.clientY };
+                setDraggingId(id);
+                hasDragged.current = false;
+              }}
               onClick={(e) => {
                 e.stopPropagation();
+                if (hasDragged.current) return;
                 if (selected === id) {
                   launch(id);
                 } else {
@@ -163,12 +254,31 @@ export const Desktop: React.FC<{ children?: React.ReactNode }> = ({ children }) 
         })}
         {files.map((file) => {
           const isSel = selected === file.id;
+          const pos = positions[file.id] || { x: 10, y: 10 };
           return (
             <button
               key={file.id}
               className="w-24 flex flex-col items-center px-1 py-1 focus:outline-none"
+              style={{
+                position: "absolute",
+                left: pos.x,
+                top: pos.y,
+              }}
+              onMouseDown={(e) => {
+                if (e.button !== 0) return;
+                e.stopPropagation();
+                setSelected(file.id);
+                dragOffset.current = {
+                  x: e.clientX - pos.x,
+                  y: e.clientY - pos.y,
+                };
+                startMousePos.current = { x: e.clientX, y: e.clientY };
+                setDraggingId(file.id);
+                hasDragged.current = false;
+              }}
               onClick={(e) => {
                 e.stopPropagation();
+                if (hasDragged.current) return;
                 if (selected === file.id) {
                   openFile(file);
                 } else {
