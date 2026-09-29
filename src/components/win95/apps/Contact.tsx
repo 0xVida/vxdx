@@ -47,8 +47,12 @@ export const Contact: React.FC = () => {
           github
         </a>{" "}
         ·{" "}
-        <a className="text-w95-link underline" href="https://x.com/vidaonx" target="_blank" rel="noreferrer">
-          x/twitter
+        <a className="text-w95-link underline" href="https://x.com/0xVxda" target="_blank" rel="noreferrer">
+          x (@0xVxda)
+        </a>
+        {" · "}
+        <a className="text-w95-link underline" href="https://substack.com/@vxdx" target="_blank" rel="noreferrer">
+          substack
         </a>
       </div>
     </div>

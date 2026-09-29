@@ -3,7 +3,7 @@ import {
   MyComputerIcon, RecycleBinIcon, NotepadIcon, IEIcon, MinesweeperIcon,
   BriefcaseIcon, InboxIcon, FolderIcon, HelpIcon, NetworkNeighborhoodIcon,
   PaintIcon, CalculatorIcon, SettingsIcon, MsDosIcon, RunIcon, FindIcon, WordPadIcon,
-  MyDocumentsIcon,
+  MyDocumentsIcon, CdPlayerIcon,
 } from "../Icons";
 import { MyComputer } from "./MyComputer";
 import { Projects } from "./Projects";
@@ -25,6 +25,9 @@ import { FindFiles } from "./FindFiles";
 import { CdPlayer } from "./CdPlayer";
 import { DriveBrowser } from "./DriveBrowser";
 import { WordPad } from "./WordPad";
+import { MediaPlayer } from "./MediaPlayer";
+import { AboutMe } from "./AboutMe";
+import { ScreenshotViewer } from "./ScreenshotViewer";
 
 export interface AppDef {
   id: string;
@@ -55,13 +58,15 @@ export const APPS: Record<string, AppDef> = {
   help:     { id: "help", title: "Help", Icon: HelpIcon, defaultSize: { w: 420, h: 320 }, Component: HelpApp, hideFromDesktop: true },
   resume:   { id: "resume", title: "Resume.doc - WordPad", Icon: WordPadIcon, defaultSize: { w: 620, h: 500 }, Component: WordPad, hideFromDesktop: true },
   wordpad:  { id: "wordpad", title: "Document - WordPad", Icon: WordPadIcon, defaultSize: { w: 620, h: 500 }, Component: WordPad, hideFromDesktop: true },
-  about:    { id: "about", title: "About Me - Notepad",   Icon: NotepadIcon,   defaultSize: { w: 520, h: 380 }, Component: Notepad, hideFromDesktop: true },
+  about:    { id: "about", title: "About Me.txt - Notepad", Icon: NotepadIcon, defaultSize: { w: 520, h: 500 }, Component: AboutMe, hideFromDesktop: true },
   "image-viewer": { id: "image-viewer", title: "Image Viewer", Icon: PaintIcon, defaultSize: { w: 560, h: 440 }, Component: ImageViewer, hideFromDesktop: true, hideFromStart: true },
   msdos: { id: "msdos", title: "MS-DOS Prompt", Icon: MsDosIcon, defaultSize: { w: 560, h: 380 }, Component: MsDosPrompt, hideFromDesktop: true },
   run: { id: "run", title: "Run", Icon: RunIcon, defaultSize: { w: 380, h: 200 }, Component: RunDialog, hideFromDesktop: true, hideFromStart: true },
   find: { id: "find", title: "Find: All Files", Icon: FindIcon, defaultSize: { w: 480, h: 360 }, Component: FindFiles, hideFromDesktop: true, hideFromStart: true },
   "cd-player": { id: "cd-player", title: "CD Player - [D:]", Icon: MyComputerIcon, defaultSize: { w: 320, h: 220 }, Component: CdPlayer, hideFromDesktop: true, hideFromStart: true },
   "drive-browser": { id: "drive-browser", title: "(C:)", Icon: FolderIcon, defaultSize: { w: 520, h: 380 }, Component: DriveBrowser, hideFromDesktop: true, hideFromStart: true },
+  "media-player": { id: "media-player", title: "Media Player", Icon: CdPlayerIcon, defaultSize: { w: 700, h: 520 }, Component: MediaPlayer, hideFromDesktop: true, hideFromStart: true },
+  "screenshot-viewer": { id: "screenshot-viewer", title: "Screenshots", Icon: PaintIcon, defaultSize: { w: 680, h: 520 }, Component: ScreenshotViewer, hideFromDesktop: true, hideFromStart: true },
 };
 
 export const DESKTOP_LAYOUT = [

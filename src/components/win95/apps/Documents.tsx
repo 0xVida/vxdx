@@ -6,7 +6,7 @@ import { NotepadIcon, BriefcaseIcon, FolderIcon, InboxIcon, QuestionDocIcon, Pai
 
 export const DOCS = [
   {
-    id: "about-doc", label: "About Me.txt", appId: "notepad", title: "About Me.txt - Notepad",
+    id: "about-doc", label: "About Me.txt", appId: "about", title: "About Me.txt - Notepad",
     Icon: NotepadIcon,
     payload: {
       readOnly: true, content:
@@ -14,13 +14,15 @@ export const DOCS = [
    ABOUT ME
 ================================
 
-  Hi, I'm Victor Ademiju (Vida).
+  Hi, I'm Victor Ademiju (vida).
   Protocol Design Engineer.
 
   I specialize in backend systems and 
   blockchain development, crafting 
   robust solutions across Solana, 
-  EVM and Move ecosystems - Sui specifically.
+  EVM and Move ecosystems.
+
+  Currently building FynMarket.
 
 --------------------------------
   EXPERTISE
@@ -29,15 +31,16 @@ export const DOCS = [
   > Smart Contract Development
   > Distributed Systems
   > Rust, Move, Solidity, TS
+  > Cryptography student — learning ZK
 
 --------------------------------
   HIGHLIGHTS
 --------------------------------
-  Bullposting Sui on a daily
+  Posting about cryptography and ZK
   Unprofessional Rapper
   Can't code without music
   Plays basketball and soccer
-  Kostas Kryptos cryptography student
+  Speaker in the Solana ecosystem
 ` }
   },
   {
@@ -50,6 +53,10 @@ Protocol Design Engineer
 
 EXPERIENCE
 ----------
+• Cryptography Researcher — Bytez3 (Present)
+  Researching applied cryptography and
+  zero-knowledge systems.
+
 • Protocol Design Engineer (2022–present)
   Led protocol design for a healthcare 
   application serving thousands of users.

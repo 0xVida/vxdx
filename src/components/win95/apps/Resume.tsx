@@ -12,6 +12,14 @@ export const Resume: React.FC = () => (
 
     <Section title="EXPERIENCE">
       <Job
+        role="Cryptography Researcher"
+        company="Bytez3"
+        date="Present"
+        bullets={[
+          "Researching applied cryptography and zero-knowledge systems.",
+        ]}
+      />
+      <Job
         role="Protocol Design Engineer"
         company="Freelance / Project-based"
         date="2022 — Present"
