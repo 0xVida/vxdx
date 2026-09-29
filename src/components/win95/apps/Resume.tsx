@@ -25,7 +25,7 @@ export const Resume: React.FC = () => (
         date="2022 — Present"
         bullets={[
           "Led protocol design for a healthcare application currently serving thousands of users.",
-          "Specializing in blockchain architecture across Solana, EVM and Move ecosystems.",
+          "Specializing in blockchain architecture across Solana, Stellar, EVM and Move ecosystems.",
           "Winner of multiple Sui hackathons, including the Mysten Labs bootcamp hackathon.",
         ]}
       />
@@ -36,7 +36,7 @@ export const Resume: React.FC = () => (
         bullets={[
           "Built end-to-end solutions combining robust server-side architectures with modern frontends.",
           "Extensive work with Sui primitives: Walrus, Seal, Nautilus, Deepbook and Enoki (ZK Login).",
-          "Developed smart contracts and dApps on Solana, Ethereum and Base.",
+          "Developed smart contracts and dApps on Solana, Stellar, Ethereum and Base.",
         ]}
       />
       <Job

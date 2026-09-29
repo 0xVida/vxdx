@@ -19,7 +19,7 @@ export const DOCS = [
 
   I specialize in backend systems and 
   blockchain development, crafting 
-  robust solutions across Solana, 
+  robust solutions across Solana, Stellar,
   EVM and Move ecosystems.
 
   Currently building FynMarket.
@@ -63,7 +63,7 @@ EXPERIENCE
   Won multiple Sui hackathons.
 
 • Blockchain Developer (2021–present)
-  Built on Sui, Solana and EVM.
+  Built on Sui, Solana, Stellar and EVM.
   Expertise in Move Sui stack primitives:
   Walrus, Seal, Nautilus, Deepbook,
   Enoki for ZK login and Sui NS.

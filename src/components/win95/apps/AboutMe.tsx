@@ -13,7 +13,7 @@ export const AboutMe: React.FC = () => (
 
   I specialize in backend systems and
   blockchain development, crafting
-  robust solutions across Solana,
+  robust solutions across Solana, Stellar,
   EVM and Move ecosystems.
 
   Currently building FynMarket.
